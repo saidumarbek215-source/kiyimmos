@@ -1,0 +1,2 @@
+/api/* https://bench-unavailable-marvel-ordinary.trycloudflare.com/api/:splat 200
+/* /index.html 200
