@@ -9,11 +9,12 @@ const productRoutes = require('./routes/products');
 const shopRoutes = require('./routes/shops');
 const adminRoutes = require('./routes/admin');
 const categoryRoutes = require('./routes/categories');
+const bannerRoutes = require('./routes/banners');
+const favoriteRoutes = require('./routes/favorites');
 
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-// Middlewares
 app.use(helmet());
 app.use(cors({
   origin: '*',
@@ -22,33 +23,26 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-
-// Static files (tovar rasmlari)
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/shops', shopRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/banners', bannerRoutes);
+app.use('/api/favorites', favoriteRoutes);
 
-// Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', project: 'KiyimMos', version: '1.0.0' });
+  res.json({ status: 'ok', project: 'KiyimMos', version: '1.1.0' });
 });
 
-// 404
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route topilmadi' });
-});
-
-// Error handler
+app.use((req, res) => res.status(404).json({ error: 'Route topilmadi' }));
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Server xatosi' });
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ KiyimMos server ishlamoqda: http://localhost:${PORT}`);
+  console.log(`✅ KiyimMos v1.1.0 ishlamoqda: http://localhost:${PORT}`);
 });

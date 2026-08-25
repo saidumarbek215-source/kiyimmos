@@ -22,8 +22,8 @@ router.post('/shop-login', requireTelegramAuth, async (req, res) => {
     // Yangi magazin yaratish
     const shopName = name || `${first_name || ''} ${last_name || ''}`.trim() || 'Yangi Magazin';
     result = await db.query(
-      `INSERT INTO shops (telegram_id, username, name, description, phone, address)
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+      `INSERT INTO shops (telegram_id, username, name, description, phone, address, is_approved, is_active)
+       VALUES ($1, $2, $3, $4, $5, $6, TRUE, TRUE) RETURNING *`,
       [telegram_id, username, shopName, description || null, phone || null, address || null]
     );
 

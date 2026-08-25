@@ -29,7 +29,7 @@ function validateTelegramInitData(initData, botToken) {
 
   // auth_date eski bo'lsa (1 soatdan ko'p) rad etamiz
   const authDate = parseInt(urlParams.get('auth_date'), 10);
-  if (Date.now() / 1000 - authDate > 3600) return null;
+  if (Date.now() / 1000 - authDate > 86400) return null;
 
   const user = urlParams.get('user');
   return user ? JSON.parse(user) : null;
